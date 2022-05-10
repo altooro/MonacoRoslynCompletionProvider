@@ -40,3 +40,5 @@ app.MapPost("/completion/{0}", async (e) =>
 app.UseFileServer();
 
 app.Run();
+
+app.Run("http://*:5280");
