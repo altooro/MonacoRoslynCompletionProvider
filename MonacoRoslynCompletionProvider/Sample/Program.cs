@@ -32,13 +32,12 @@ app.MapPost("/completion/{0}", async (e) =>
             await JsonSerializer.SerializeAsync(e.Response.Body, codeCheckResults);
             return;
         }
-    } 
-    
+    }
+
     e.Response.StatusCode = 405;
 });
 
 app.UseFileServer();
 
-app.Run();
 
 app.Run("http://*:5280");
