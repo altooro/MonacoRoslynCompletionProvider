@@ -10,9 +10,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       builder => builder
-                          .AllowAnyOrigin()
-                          .AllowAnyMethod()
-                          .AllowAnyHeader());
+                          .AllowAnyOrigin());
 });
 
 // services.AddResponseCaching();
@@ -21,7 +19,6 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
-app.UseCors(MyAllowSpecificOrigins);
 
 app.MapPost("/completion/{0}", async (e) =>
 {
@@ -56,6 +53,7 @@ app.MapPost("/completion/{0}", async (e) =>
 });
 
 app.UseFileServer();
+app.UseCors(MyAllowSpecificOrigins);
 
 
 app.Run("http://*:5280");
