@@ -5,6 +5,12 @@ using System.Text.Json;
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
+app.UseCors(builder => builder
+     .AllowAnyOrigin()
+     .AllowAnyMethod()
+     .AllowAnyHeader()
+     .AllowCredentials());
+
 app.MapPost("/completion/{0}", async (e) =>
 {
     using var reader = new StreamReader(e.Request.Body);
