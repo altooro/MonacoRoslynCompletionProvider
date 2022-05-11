@@ -2,14 +2,27 @@ using MonacoRoslynCompletionProvider;
 using MonacoRoslynCompletionProvider.Api;
 using System.Text.Json;
 
+var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      builder => builder
+                          .AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader()
+                          .AllowCredentials());
+});
+
+// services.AddResponseCaching();
+
+builder.Services.AddControllers();
+
 var app = builder.Build();
 
-app.UseCors(builder => builder
-     .AllowAnyOrigin()
-     .AllowAnyMethod()
-     .AllowAnyHeader()
-     .AllowCredentials());
+app.UseCors(MyAllowSpecificOrigins);
 
 app.MapPost("/completion/{0}", async (e) =>
 {
