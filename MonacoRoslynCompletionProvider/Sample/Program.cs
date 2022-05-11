@@ -13,9 +13,6 @@ builder.Services.AddCors(options =>
                           .AllowAnyOrigin();});
 });
 
-// services.AddResponseCaching();
-
-builder.Services.AddControllers();
 
 var app = builder.Build();
 
